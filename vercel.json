@@ -12,5 +12,11 @@
       "source": "/((?!api/).*)",
       "destination": "/"
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/record",
+      "schedule": "*/1 * * * *"
+    }
   ]
 }
