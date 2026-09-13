@@ -11,15 +11,27 @@ const GRAPH_STEP_MS = 60 * 1000
 
 // Vercel KV (Upstash Redis) is accessed through its plain REST interface using
 // the built-in fetch API. This deliberately avoids adding an npm dependency.
+//
+// Vercel KV is deprecated, so both the legacy KV_* variables and the current
+// UPSTASH_REDIS_* variables injected by the Upstash Redis integration are
+// supported.
+function kvRestUrl () {
+  return process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL
+}
+
+function kvRestToken () {
+  return process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN
+}
+
 function configured () {
-  return !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN)
+  return !!(kvRestUrl() && kvRestToken())
 }
 
 async function request (url, body) {
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      Authorization: 'Bearer ' + process.env.KV_REST_API_TOKEN
+      Authorization: 'Bearer ' + kvRestToken()
     },
     body: JSON.stringify(body)
   })
@@ -36,7 +48,7 @@ async function command (command, ...args) {
     throw new Error('Vercel KV is not configured')
   }
 
-  const json = await request(process.env.KV_REST_API_URL, { command, args })
+  const json = await request(kvRestUrl(), { command, args })
 
   if (json.error) {
     throw new Error(json.error)
@@ -50,7 +62,7 @@ async function pipeline (commands) {
     throw new Error('Vercel KV is not configured')
   }
 
-  const json = await request(process.env.KV_REST_API_URL + '/pipeline', commands)
+  const json = await request(kvRestUrl() + '/pipeline', commands)
 
   return json.map(item => {
     if (item.error) {
