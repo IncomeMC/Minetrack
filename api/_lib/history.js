@@ -48,7 +48,7 @@ async function command (command, ...args) {
     throw new Error('Vercel KV is not configured')
   }
 
-  const json = await request(kvRestUrl(), { command, args })
+  const json = await request(kvRestUrl(), [command, ...args])
 
   if (json.error) {
     throw new Error(json.error)
@@ -62,7 +62,7 @@ async function pipeline (commands) {
     throw new Error('Vercel KV is not configured')
   }
 
-  const json = await request(kvRestUrl() + '/pipeline', commands)
+  const json = await request(kvRestUrl() + '/pipeline', commands.map(({ command, args }) => [command, ...args]))
 
   return json.map(item => {
     if (item.error) {
