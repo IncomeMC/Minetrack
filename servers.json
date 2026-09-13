@@ -3,5 +3,15 @@
 		"name": "Minehut",
 		"ip": "minehut.gg",
 		"type": "PC"
+	},
+	{
+		"name": "IncomeMC",
+		"ip": "incomemc.minehut.gg",
+		"type": "PC"
+	},
+	{
+		"name": "MineKeep",
+		"ip": "minekeep.net",
+		"type": "PC"
 	}
 ]
