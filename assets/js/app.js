@@ -24,7 +24,7 @@ export class App {
 
   // Called once the DOM is ready and the app can begin setup
   init () {
-    this.socketManager.createWebSocket()
+    this.socketManager.initialize()
   }
 
   setPageReady (isReady) {
