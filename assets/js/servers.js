@@ -241,7 +241,10 @@ export class ServerRegistration {
     if (ping.graphPeakData) {
       this._renderValue('peak', (element) => {
         element.innerText = formatNumber(ping.graphPeakData.playerCount)
-        element.title = `At ${formatTimestampSeconds(ping.graphPeakData.timestamp)}`
+
+        if (ping.graphPeakData.timestamp > 0) {
+          element.title = `At ${formatTimestampSeconds(ping.graphPeakData.timestamp)}`
+        }
       })
 
       this.lastPeakData = ping.graphPeakData
