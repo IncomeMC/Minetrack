@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Ping /api/record
-        run: curl -fsS --max-time 30 -o /dev/null "${{ vars.RECORD_URL }}"
+        run: curl -fsS --max-time 30 -o /dev/null "https://track.incomemc.net/api/record"
