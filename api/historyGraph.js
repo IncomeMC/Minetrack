@@ -14,10 +14,15 @@ module.exports = async (req, res) => {
   if (!history.configured()) {
     payload = buildHistoryGraph(servers, { timestamps: [], data: [] })
   } else {
-    const nowMs = Date.now()
-    const window = await history.getWindow(nowMs - config.graphDuration, nowMs)
+    try {
+      const nowMs = Date.now()
+      const window = await history.getWindow(nowMs - config.graphDuration, nowMs)
 
-    payload = buildHistoryGraph(servers, window)
+      payload = buildHistoryGraph(servers, window)
+    } catch (err) {
+      // A storage failure must not break the page; serve an empty graph
+      payload = buildHistoryGraph(servers, { timestamps: [], data: [] })
+    }
   }
 
   res.setHeader('Content-Type', 'application/json')

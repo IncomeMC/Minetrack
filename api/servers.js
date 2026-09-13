@@ -27,9 +27,15 @@ module.exports = async (req, res) => {
   let updateHistoryGraph = false
 
   if (isGraphVisible) {
-    recordUpdates = await history.applyRecordUpdates(servers, counts, nowMs)
-    updateHistoryGraph = await history.recordPoint(servers, counts, nowMs)
-    peaksByIp = await history.getAllPeaks()
+    try {
+      recordUpdates = await history.applyRecordUpdates(servers, counts, nowMs)
+      updateHistoryGraph = await history.recordPoint(servers, counts, nowMs)
+      peaksByIp = await history.getAllPeaks()
+    } catch (err) {
+      // A storage failure must never break live tracking
+      recordUpdates = []
+      updateHistoryGraph = false
+    }
   }
 
   const payload = buildUpdateServers(servers, results, isGraphVisible, recordUpdates, peaksByIp, nowMs, updateHistoryGraph)

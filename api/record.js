@@ -29,13 +29,19 @@ module.exports = async (req, res) => {
   let recorded = false
 
   if (history.configured()) {
-    const results = await pingAll(servers, config.rates.connectTimeout)
+    try {
+      const results = await pingAll(servers, config.rates.connectTimeout)
 
-    const nowMs = Date.now()
-    const counts = servers.map((server, serverId) => getPlayerCountOrNull(results[serverId].resp))
+      const nowMs = Date.now()
+      const counts = servers.map((server, serverId) => getPlayerCountOrNull(results[serverId].resp))
 
-    await applyRecordUpdates(servers, counts, nowMs)
-    recorded = await history.recordPoint(servers, counts, nowMs)
+      await applyRecordUpdates(servers, counts, nowMs)
+      recorded = await history.recordPoint(servers, counts, nowMs)
+    } catch (err) {
+      // A storage failure must not crash this endpoint so cron jobs and
+      // the frontend keep receiving a response
+      recorded = false
+    }
   }
 
   res.setHeader('Content-Type', 'application/json')
