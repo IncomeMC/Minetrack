@@ -13,10 +13,5 @@
 		"name": "MineKeep",
 		"ip": "minekeep.net",
 		"type": "PC"
-	},
-	{
-		"name": "Myntrix",
-		"ip": "myntrix.minehut.gg",
-		"type": "PC"
 	}
 ]
