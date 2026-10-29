@@ -13,5 +13,10 @@
 		"name": "MineKeep",
 		"ip": "minekeep.net",
 		"type": "PC"
+	},
+	{
+		"name": "Toxiss",
+		"ip": "toxiss.net",
+		"type": "PC"
 	}
 ]
