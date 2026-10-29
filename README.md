@@ -2,7 +2,12 @@
 	<img width="120" height="120" src="assets/images/logo.svg">
 </p>
 
+## ⚠️ DISCLAIMER ⚠️
+The guide for setting this up hasn't been made yet. Please don't use this until it has been made.
+If you do decide to use it, please contact `matumaka` on Discord.
+
 # Minetrack
+
 Minetrack makes it easy to keep an eye on your favorite Minecraft servers. Simple and hackable, Minetrack easily runs on any hardware. Use it for monitoring, analytics, or just for fun. [Check it out](https://minetrack.me).
 
 ### This project is not actively supported!
