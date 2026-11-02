@@ -18,5 +18,10 @@
 		"name": "Toxiss",
 		"ip": "toxiss.net",
 		"type": "PC"
+	},
+	{
+		"name": "LiteMC",
+		"ip": "litemc.eu",
+		"type": "PC"
 	}
 ]
