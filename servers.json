@@ -23,5 +23,10 @@
 		"name": "LiteMC",
 		"ip": "litemc.eu",
 		"type": "PC"
+	},
+		{
+		"name": "FruitFun",
+		"ip": "play.fruitfun.org",
+		"type": "PC"
 	}
 ]
